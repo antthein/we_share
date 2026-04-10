@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>we_share — Knowledge Sharing, Legit and Trustworthy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            bg:      'var(--c-bg)',
+            bgalt:   'var(--c-bgalt)',
+            surface: 'var(--c-surface)',
+            hi:      'var(--c-hi)',
+            lo:      'var(--c-lo)',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-bg text-hi font-sans antialiased">
+
+  <!-- ===== NAV ===== -->
+  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-bg/[0.88] backdrop-blur-md border-b border-hi/[0.08]">
+    <a href="/" class="text-xl font-black tracking-tight text-hi">we_share</a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="#browse" class="text-sm text-lo hover:text-hi transition-colors">Browse</a></li>
+      <li><a href="#about"  class="text-sm text-lo hover:text-hi transition-colors">About</a></li>
+      <li><a href="#how"    class="text-sm text-lo hover:text-hi transition-colors">How it works</a></li>
+      <li>
+        <a href="#join" class="text-sm font-semibold px-4 py-2 rounded-lg border border-hi/[0.12] text-hi hover:bg-hi/[0.05] transition-all">
+          Join
+        </a>
+      </li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <!-- Theme toggle -->
+      <button id="theme-toggle" aria-label="Toggle theme"
+              class="p-2 rounded-lg text-lo hover:text-hi hover:bg-hi/[0.06] transition-all">
+        <!-- Sun (shown in dark mode to switch to light) -->
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon (shown in light mode to switch to dark) -->
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Hamburger -->
+      <button id="hamburger" aria-label="Toggle menu" class="md:hidden flex flex-col gap-[5px] p-1">
+        <span class="block w-5 h-0.5 bg-hi rounded"></span>
+        <span class="block w-5 h-0.5 bg-hi rounded"></span>
+        <span class="block w-5 h-0.5 bg-hi rounded"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 bg-bg border-b border-hi/[0.08] px-8 py-6 flex flex-col gap-5">
+    <a href="#browse" class="text-sm text-lo hover:text-hi transition-colors">Browse</a>
+    <a href="#about"  class="text-sm text-lo hover:text-hi transition-colors">About</a>
+    <a href="#how"    class="text-sm text-lo hover:text-hi transition-colors">How it works</a>
+    <a href="#join"   class="text-sm font-semibold text-hi">Join &rarr;</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="max-w-[1100px] mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-2 items-center gap-16 min-h-[calc(100vh-65px)]">
+    <div>
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-4">
+        Core &rsaquo; Knowledge Sharing
+      </p>
+      <h1 class="text-[5rem] lg:text-[7rem] font-black leading-none tracking-[-0.04em] text-hi mb-6">
+        we_share
+      </h1>
+      <p class="text-lg text-lo mb-10 max-w-[42ch] leading-relaxed">
+        Knowledge sharing as we see in everyday.<br />
+        Legit and trustworthy.
+      </p>
+      <div class="flex items-center gap-6 flex-wrap">
+        <a href="#join" class="ws-btn-primary">Start Sharing</a>
+        <a href="#browse" class="text-sm text-lo font-semibold hover:text-hi transition-colors">
+          Browse posts &darr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Orbit visual -->
+    <div class="hidden lg:flex justify-center items-center" aria-hidden="true">
+      <div class="orbit relative w-[320px] h-[320px]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] rounded-full border border-hi/[0.08]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full border border-hi/[0.08]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-hi/[0.08]"></div>
+        <div class="orbit__dot orbit__dot--1"></div>
+        <div class="orbit__dot orbit__dot--2"></div>
+        <div class="orbit__dot orbit__dot--3"></div>
+        <div class="orbit__dot orbit__dot--4"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-surface border border-hi/[0.08] flex items-center justify-center text-2xl font-black text-hi">K</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="overflow-hidden border-t border-b border-hi/[0.08] py-3 bg-bgalt" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Design</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Development</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Science</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Finance</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Health</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Philosophy</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Engineering</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Art</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Business</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Education</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Design</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Development</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Science</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Finance</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Health</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Philosophy</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Engineering</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Art</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Business</span><span class="text-lo mx-4">&bull;</span>
+      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-lo">Education</span><span class="text-lo mx-4">&bull;</span>
+    </div>
+  </div>
+
+  <!-- ===== BROWSE & SEARCH ===== -->
+  <section class="py-20" id="browse">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3">Discover</p>
+      <h2 class="text-3xl lg:text-[2.5rem] font-bold tracking-tight text-hi mb-8">Browse posts</h2>
+
+      <!-- Search -->
+      <div class="relative mb-5">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-lo w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input id="search-input" type="text" placeholder="Search posts, topics, authors..."
+               class="w-full pl-11 pr-4 py-3 bg-surface rounded-xl border border-hi/[0.08] text-hi placeholder:text-lo text-sm outline-none focus:border-hi/[0.3] transition-colors" />
+      </div>
+
+      <!-- Topic filters -->
+      <div class="flex gap-2 flex-wrap mb-8" id="topic-filters">
+        <button class="topic-filter active" data-topic="all">All</button>
+        <button class="topic-filter" data-topic="Development">Development</button>
+        <button class="topic-filter" data-topic="Productivity">Productivity</button>
+        <button class="topic-filter" data-topic="Business">Business</button>
+        <button class="topic-filter" data-topic="Health">Health</button>
+        <button class="topic-filter" data-topic="Finance">Finance</button>
+      </div>
+
+      <!-- Post grid -->
+      <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Empty state -->
+      <div id="no-results" class="hidden text-center py-16">
+        <p class="text-3xl mb-3">&#128269;</p>
+        <p class="text-lo text-sm">No posts match your search. Try different keywords.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="py-24 bg-bgalt" id="about">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div>
+        <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3">What we believe</p>
+        <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-hi leading-tight mb-6">
+          Real knowledge comes<br class="hidden lg:block" /> from real people.
+        </h2>
+        <p class="text-lo mb-4 leading-relaxed">
+          we_share is a community platform where individuals share genuine insights,
+          practical wisdom, and everyday experiences — without the noise, ads, or
+          algorithmic distortion.
+        </p>
+        <p class="text-lo leading-relaxed">
+          Every post is human-authored, community-vetted, and built around a single
+          promise: <strong class="text-hi font-semibold">what you read here is legit.</strong>
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="reveal p-6 bg-surface rounded-xl border border-hi/[0.08]">
+          <span class="block text-[2rem] font-black text-hi tracking-tight mb-1">12k+</span>
+          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-lo">Contributors</span>
+        </div>
+        <div class="reveal p-6 bg-surface rounded-xl border border-hi/[0.08]">
+          <span class="block text-[2rem] font-black text-hi tracking-tight mb-1">48k+</span>
+          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-lo">Posts shared</span>
+        </div>
+        <div class="reveal p-6 bg-surface rounded-xl border border-hi/[0.08]">
+          <span class="block text-[2rem] font-black text-hi tracking-tight mb-1">200+</span>
+          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-lo">Topics covered</span>
+        </div>
+        <div class="reveal p-6 bg-surface rounded-xl border border-hi/[0.08]">
+          <span class="block text-[2rem] font-black text-hi tracking-tight mb-1">98%</span>
+          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-lo">Trust rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="py-24" id="how">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3 text-center">How it works</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-hi text-center mb-14">Three simple steps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-4">
+        <div class="reveal p-8 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.2] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-hi/[0.06] tracking-tight mb-4 leading-none">01</div>
+          <h3 class="text-base font-bold text-hi mb-2">Share what you know</h3>
+          <p class="text-sm text-lo leading-relaxed">Post an insight, a how-to, a lesson learned — anything you genuinely know from experience.</p>
+        </div>
+        <div class="hidden md:block text-lo text-2xl px-2">&rarr;</div>
+        <div class="reveal p-8 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.2] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-hi/[0.06] tracking-tight mb-4 leading-none">02</div>
+          <h3 class="text-base font-bold text-hi mb-2">Community validates</h3>
+          <p class="text-sm text-lo leading-relaxed">Peers with real expertise review and vouch for content. Quality rises naturally, noise sinks.</p>
+        </div>
+        <div class="hidden md:block text-lo text-2xl px-2">&rarr;</div>
+        <div class="reveal p-8 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.2] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-hi/[0.06] tracking-tight mb-4 leading-none">03</div>
+          <h3 class="text-base font-bold text-hi mb-2">Everyone benefits</h3>
+          <p class="text-sm text-lo leading-relaxed">Readers find trustworthy knowledge. Contributors build reputation. The community grows stronger.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOPICS ===== -->
+  <section class="py-24 bg-bgalt" id="topics">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3 text-center">Explore</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-hi text-center mb-14">Topics we cover</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <a href="#browse" data-filter="Development" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#128187;</span>
+          <span class="text-sm font-bold text-hi">Development</span>
+          <span class="text-xs text-lo">8,241 posts</span>
+        </a>
+        <a href="#browse" data-filter="Design" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#127775;</span>
+          <span class="text-sm font-bold text-hi">Design</span>
+          <span class="text-xs text-lo">5,102 posts</span>
+        </a>
+        <a href="#browse" data-filter="Finance" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#128200;</span>
+          <span class="text-sm font-bold text-hi">Finance</span>
+          <span class="text-xs text-lo">4,876 posts</span>
+        </a>
+        <a href="#browse" data-filter="Science" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#129504;</span>
+          <span class="text-sm font-bold text-hi">Science</span>
+          <span class="text-xs text-lo">6,330 posts</span>
+        </a>
+        <a href="#browse" data-filter="Productivity" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#127919;</span>
+          <span class="text-sm font-bold text-hi">Productivity</span>
+          <span class="text-xs text-lo">3,954 posts</span>
+        </a>
+        <a href="#browse" data-filter="Business" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#127981;</span>
+          <span class="text-sm font-bold text-hi">Business</span>
+          <span class="text-xs text-lo">4,212 posts</span>
+        </a>
+        <a href="#browse" data-filter="Health" class="topic-card reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-hi/[0.08] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl">&#127774;</span>
+          <span class="text-sm font-bold text-hi">Health</span>
+          <span class="text-xs text-lo">3,100 posts</span>
+        </a>
+        <a href="#browse" class="reveal group flex flex-col gap-2 p-5 bg-surface rounded-xl border border-dashed border-hi/[0.12] hover:border-hi/[0.25] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl font-bold text-lo">+</span>
+          <span class="text-sm font-bold text-hi">200+ more</span>
+          <span class="text-xs text-lo">Browse all topics</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST PILLARS ===== -->
+  <section class="py-24">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3 text-center">Our promise</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-hi text-center mb-14">Built on trust</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="reveal flex flex-col gap-3">
+          <div class="w-2 h-2 rounded-full bg-lo"></div>
+          <h3 class="text-base font-bold text-hi">No algorithms</h3>
+          <p class="text-sm text-lo leading-relaxed">Content surfaced by community votes and expertise — not engagement bait or ad revenue.</p>
+        </div>
+        <div class="reveal flex flex-col gap-3">
+          <div class="w-2 h-2 rounded-full bg-lo"></div>
+          <h3 class="text-base font-bold text-hi">Real identities</h3>
+          <p class="text-sm text-lo leading-relaxed">Contributors are verified humans. Anonymous posts aren't allowed; accountability matters.</p>
+        </div>
+        <div class="reveal flex flex-col gap-3">
+          <div class="w-2 h-2 rounded-full bg-lo"></div>
+          <h3 class="text-base font-bold text-hi">Peer reviewed</h3>
+          <p class="text-sm text-lo leading-relaxed">Every post goes through community review before it reaches the front page.</p>
+        </div>
+        <div class="reveal flex flex-col gap-3">
+          <div class="w-2 h-2 rounded-full bg-lo"></div>
+          <h3 class="text-base font-bold text-hi">Open to all</h3>
+          <p class="text-sm text-lo leading-relaxed">Free to read, free to join. Knowledge shouldn't live behind paywalls.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="py-24 bg-bgalt border-t border-hi/[0.08]" id="join">
+    <div class="max-w-[1100px] mx-auto px-6 flex flex-col items-center text-center">
+      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-lo mb-3">Ready?</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-hi leading-tight mb-4">
+        Join the community.<br />Share what you know.
+      </h2>
+      <p class="text-lo mb-10 max-w-[46ch] leading-relaxed">
+        It takes 60 seconds to sign up. No noise, no ads, just knowledge.
+      </p>
+      <form class="flex gap-3 flex-wrap justify-center w-full max-w-[480px] mb-3" onsubmit="handleSignup(event)">
+        <input type="email" placeholder="Enter your email address" aria-label="Email address" required
+               class="flex-1 min-w-[220px] px-4 py-3 bg-surface border border-hi/[0.08] focus:border-hi/[0.3] rounded-lg text-sm text-hi placeholder:text-lo outline-none transition-colors font-sans" />
+        <button type="submit" class="ws-btn-primary">Get started</button>
+      </form>
+      <p class="text-xs text-lo">We respect your privacy. No spam, ever.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-bgalt border-t border-hi/[0.08] pt-16 pb-8">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-12 border-b border-hi/[0.08] mb-8">
+        <div>
+          <span class="text-xl font-black tracking-tight text-hi block mb-3">we_share</span>
+          <p class="text-sm text-lo leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-hi mb-1">Product</p>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Features</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Topics</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Community</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-hi mb-1">Company</p>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">About</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Blog</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Careers</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-hi mb-1">Legal</p>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Privacy</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Terms</a>
+          <a href="#" class="text-sm text-lo hover:text-hi transition-colors">Guidelines</a>
+        </div>
+      </div>
+      <p class="text-xs text-lo">&copy; 2026 we_share. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
