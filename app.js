@@ -228,18 +228,22 @@ function handleSignup(e) {
 // ===== THEME =====
 
 function initTheme() {
+  // html starts with class="dark" — remove it only if user saved light preference
   const saved = localStorage.getItem('ws-theme') || 'dark';
-  if (saved === 'light') document.documentElement.classList.add('light');
+  if (saved === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
   updateThemeIcon(saved);
 
   document.querySelectorAll('#theme-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
-      // Apply smooth transition
       document.documentElement.classList.add('theme-transition');
       setTimeout(() => document.documentElement.classList.remove('theme-transition'), 300);
 
-      const isLight = document.documentElement.classList.toggle('light');
-      const mode = isLight ? 'light' : 'dark';
+      const isDark = document.documentElement.classList.toggle('dark');
+      const mode = isDark ? 'dark' : 'light';
       localStorage.setItem('ws-theme', mode);
       updateThemeIcon(mode);
     });
@@ -247,6 +251,8 @@ function initTheme() {
 }
 
 function updateThemeIcon(mode) {
+  // Sun icon = currently dark, click to go light
+  // Moon icon = currently light, click to go dark
   document.querySelectorAll('#icon-sun').forEach(el => el.classList.toggle('hidden', mode === 'light'));
   document.querySelectorAll('#icon-moon').forEach(el => el.classList.toggle('hidden', mode === 'dark'));
 }
@@ -290,29 +296,29 @@ function postCardHTML(post) {
   const bookmarked = isBookmarked(post.id) ? 'bookmarked' : '';
   const verifiedHTML = post.verified
     ? `<span style="background:rgba(34,197,94,0.12);color:#22c55e" class="inline-flex items-center gap-1 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full ml-auto">&#10003; ${post.trustScore}%</span>`
-    : `<span class="text-[0.65rem] text-lo ml-auto">${post.trustScore}%</span>`;
+    : `<span class="text-[0.65rem] text-[#555] dark:text-[#888] ml-auto">${post.trustScore}%</span>`;
 
   return `
-    <article class="post-card flex flex-col gap-3 p-5 bg-surface rounded-xl border border-hi/[0.08]
-                    hover:border-hi/[0.22] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+    <article class="post-card flex flex-col gap-3 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]
+                    hover:border-black/[0.22] dark:hover:border-white/[0.22] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
              data-id="${post.id}">
       <div class="flex items-start justify-between gap-2">
         <span class="text-[0.65rem] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full
-                     bg-hi/[0.06] text-lo">${post.topic}</span>
+                     bg-black/[0.06] dark:bg-white/[0.06] text-[#555] dark:text-[#888]">${post.topic}</span>
         <button class="bookmark-btn ${bookmarked} shrink-0" data-id="${post.id}" aria-label="Bookmark">
           ${BOOKMARK_ICON}
         </button>
       </div>
-      <h3 class="text-[0.9rem] font-bold text-hi leading-snug">${post.title}</h3>
-      <p class="text-sm text-lo leading-relaxed"
+      <h3 class="text-[0.9rem] font-bold text-black dark:text-white leading-snug">${post.title}</h3>
+      <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed"
          style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">
         ${post.excerpt}
       </p>
-      <div class="flex items-center gap-2 mt-auto pt-3 border-t border-hi/[0.06]">
-        <div class="w-6 h-6 rounded-full bg-hi/[0.1] flex items-center justify-center
-                    text-[0.6rem] font-bold text-hi shrink-0">${post.initials}</div>
-        <span class="text-xs text-lo truncate">${post.author}</span>
-        <span class="text-xs text-lo ml-auto shrink-0">${post.readTime} min</span>
+      <div class="flex items-center gap-2 mt-auto pt-3 border-t border-black/[0.06] dark:border-white/[0.06]">
+        <div class="w-6 h-6 rounded-full bg-black/[0.1] dark:bg-white/[0.1] flex items-center justify-center
+                    text-[0.6rem] font-bold text-black dark:text-white shrink-0">${post.initials}</div>
+        <span class="text-xs text-[#555] dark:text-[#888] truncate">${post.author}</span>
+        <span class="text-xs text-[#555] dark:text-[#888] ml-auto shrink-0">${post.readTime} min</span>
         ${verifiedHTML}
       </div>
     </article>`;
@@ -442,7 +448,7 @@ function initPostPage() {
   const tagsEl = document.getElementById('post-tags');
   if (tagsEl) {
     tagsEl.innerHTML = post.tags.map(t =>
-      `<span class="text-xs font-medium px-3 py-1 rounded-full bg-hi/[0.06] text-lo border border-hi/[0.08]">${t}</span>`
+      `<span class="text-xs font-medium px-3 py-1 rounded-full bg-black/[0.06] dark:bg-white/[0.06] text-[#555] dark:text-[#888] border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">${t}</span>`
     ).join('');
   }
 
@@ -524,19 +530,19 @@ function initComments(id) {
     if (!listEl) return;
 
     if (comments.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-lo py-4">No comments yet — be the first to start the discussion.</p>`;
+      listEl.innerHTML = `<p class="text-sm text-[#555] dark:text-[#888] py-4">No comments yet — be the first to start the discussion.</p>`;
       return;
     }
 
     listEl.innerHTML = comments.map(c => `
       <div class="comment-item">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-7 h-7 rounded-full bg-hi/[0.1] flex items-center justify-center
-                      text-[0.6rem] font-bold text-hi">${c.initials}</div>
-          <span class="text-sm font-semibold text-hi">${escapeHTML(c.name)}</span>
-          <span class="text-xs text-lo ml-auto">${formatDate(c.date)}</span>
+          <div class="w-7 h-7 rounded-full bg-black/[0.1] dark:bg-white/[0.1] flex items-center justify-center
+                      text-[0.6rem] font-bold text-black dark:text-white">${c.initials}</div>
+          <span class="text-sm font-semibold text-black dark:text-white">${escapeHTML(c.name)}</span>
+          <span class="text-xs text-[#555] dark:text-[#888] ml-auto">${formatDate(c.date)}</span>
         </div>
-        <p class="text-sm text-lo leading-relaxed">${escapeHTML(c.text)}</p>
+        <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">${escapeHTML(c.text)}</p>
       </div>`
     ).join('');
   }

@@ -3,22 +3,22 @@
    Theme variables + animations + component styles
    ================================================ */
 
-/* ---- Dark theme (default) ---- */
+/* ---- Light theme (default) ---- */
 :root {
+  --c-bg:      255 255 255;   /* #ffffff */
+  --c-bgalt:   240 240 240;   /* #f0f0f0 */
+  --c-surface: 229 229 229;   /* #e5e5e5 */
+  --c-hi:      15 15 15;      /* #0f0f0f */
+  --c-lo:      85 85 85;      /* #555555 */
+}
+
+/* ---- Dark theme ---- */
+.dark {
   --c-bg:      17 17 17;      /* #111111 */
   --c-bgalt:   24 24 24;      /* #181818 */
   --c-surface: 30 30 30;      /* #1e1e1e */
   --c-hi:      255 255 255;   /* #ffffff */
   --c-lo:      136 136 136;   /* #888888 */
-}
-
-/* ---- Light theme ---- */
-html.light {
-  --c-bg:      248 249 250;   /* #f8f9fa */
-  --c-bgalt:   239 240 241;   /* #eff0f1 */
-  --c-surface: 228 230 232;   /* #e4e6e8 */
-  --c-hi:      15 15 15;      /* #0f0f0f */
-  --c-lo:      82 82 82;      /* #525252 */
 }
 
 /* ---- Smooth theme transition (only during switch) ---- */
