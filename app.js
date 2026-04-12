@@ -225,36 +225,127 @@ function handleSignup(e) {
   showToast("You're on the list! We'll be in touch.");
 }
 
-// ===== THEME =====
+// ===== THEME TOGGLE =====
+
+function showBrightnessWarning(onConfirm) {
+  const overlay = document.createElement('div');
+  overlay.id = 'brightness-warning';
+  overlay.style.cssText = [
+    'position:fixed;inset:0;z-index:9999',
+    'display:flex;align-items:center;justify-content:center',
+    'background:rgba(0,0,0,0.55);backdrop-filter:blur(6px)',
+    'animation:fadeInOverlay 0.2s ease'
+  ].join(';');
+
+  overlay.innerHTML = `
+    <div style="
+      background:#1a1a1a;border:1px solid rgba(240,237,232,0.1);
+      border-radius:16px;padding:2rem 1.75rem;max-width:320px;width:90%;
+      box-shadow:0 32px 80px rgba(0,0,0,0.7);
+      font-family:Inter,system-ui,sans-serif;
+      animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1)
+    ">
+      <div style="font-size:2.2rem;margin-bottom:0.85rem;line-height:1">🕶️</div>
+      <h3 style="color:#f0ede8;font-size:0.95rem;font-weight:800;margin-bottom:0.5rem;letter-spacing:-0.01em">
+        warning: extreme brightness ahead
+      </h3>
+      <p style="color:#787068;font-size:0.78rem;line-height:1.65;margin-bottom:1.4rem">
+        you're switching to light mode.<br/>your eyes called. they said no.
+      </p>
+      <label style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1.4rem;cursor:pointer;user-select:none">
+        <input type="checkbox" id="no-warn-again" style="accent-color:#4a9ebb;width:13px;height:13px;cursor:pointer" />
+        <span style="color:#787068;font-size:0.72rem">i have sunglasses — don't ask again</span>
+      </label>
+      <div style="display:flex;gap:0.65rem">
+        <button id="warn-cancel" style="
+          flex:1;padding:0.6rem 0.75rem;border-radius:8px;
+          border:1.5px solid rgba(240,237,232,0.12);
+          background:transparent;color:#787068;
+          font-size:0.78rem;font-weight:600;cursor:pointer;
+          font-family:inherit;transition:border-color 0.15s,color 0.15s
+        ">stay dark 🌑</button>
+        <button id="warn-confirm" style="
+          flex:1;padding:0.6rem 0.75rem;border-radius:8px;
+          border:none;background:#4a9ebb;color:#111;
+          font-size:0.78rem;font-weight:700;cursor:pointer;
+          font-family:inherit;transition:opacity 0.15s
+        ">i'm ready 🌞</button>
+      </div>
+    </div>
+    <style>
+      @keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+      @keyframes popIn { from { opacity:0; transform:scale(0.88) translateY(12px) } to { opacity:1; transform:scale(1) translateY(0) } }
+      #warn-cancel:hover  { border-color:rgba(240,237,232,0.3)!important; color:#f0ede8!important }
+      #warn-confirm:hover { opacity:0.85!important }
+    </style>`;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('warn-confirm').addEventListener('click', () => {
+    if (document.getElementById('no-warn-again').checked) {
+      localStorage.setItem('ws-no-brightness-warn', '1');
+    }
+    overlay.remove();
+    onConfirm();
+  });
+
+  document.getElementById('warn-cancel').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+}
+
+function applyTheme(mode) {
+  document.documentElement.classList.toggle('dark', mode === 'dark');
+  localStorage.setItem('ws-theme', mode);
+  updateThemeIcon(mode);
+}
 
 function initTheme() {
-  // html starts with class="dark" — remove it only if user saved light preference
+  if (document.getElementById('post-content')) return; // post.html uses reading mode instead
+
   const saved = localStorage.getItem('ws-theme') || 'dark';
-  if (saved === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-  }
-  updateThemeIcon(saved);
+  applyTheme(saved);
 
-  document.querySelectorAll('#theme-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.documentElement.classList.add('theme-transition');
-      setTimeout(() => document.documentElement.classList.remove('theme-transition'), 300);
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const currentlyDark = document.documentElement.classList.contains('dark');
 
-      const isDark = document.documentElement.classList.toggle('dark');
-      const mode = isDark ? 'dark' : 'light';
-      localStorage.setItem('ws-theme', mode);
-      updateThemeIcon(mode);
-    });
+    if (currentlyDark && !localStorage.getItem('ws-no-brightness-warn')) {
+      showBrightnessWarning(() => applyTheme('light'));
+    } else {
+      applyTheme(currentlyDark ? 'light' : 'dark');
+    }
   });
 }
 
 function updateThemeIcon(mode) {
-  // Sun icon = currently dark, click to go light
-  // Moon icon = currently light, click to go dark
+  // Sun shown in dark mode → click to go light
+  // Moon shown in light mode → click to go dark
   document.querySelectorAll('#icon-sun').forEach(el => el.classList.toggle('hidden', mode === 'light'));
   document.querySelectorAll('#icon-moon').forEach(el => el.classList.toggle('hidden', mode === 'dark'));
+}
+
+// ===== READING MODE (post page toggle: dark ↔ light paper) =====
+
+function initReadingMode() {
+  if (!document.getElementById('post-content')) return; // only on post.html
+
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  const saved = localStorage.getItem('ws-reading') || 'dark';
+  if (saved === 'light') {
+    document.documentElement.classList.add('reading-mode');
+  }
+  updateThemeIcon(saved);
+
+  btn.addEventListener('click', () => {
+    document.documentElement.classList.add('reading-transition');
+    setTimeout(() => document.documentElement.classList.remove('reading-transition'), 350);
+
+    const isLight = document.documentElement.classList.toggle('reading-mode');
+    const mode = isLight ? 'light' : 'dark';
+    localStorage.setItem('ws-reading', mode);
+    updateThemeIcon(mode);
+  });
 }
 
 // ===== MOBILE NAV =====
@@ -295,30 +386,32 @@ const BOOKMARK_ICON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="non
 function postCardHTML(post) {
   const bookmarked = isBookmarked(post.id) ? 'bookmarked' : '';
   const verifiedHTML = post.verified
-    ? `<span style="background:rgba(34,197,94,0.12);color:#22c55e" class="inline-flex items-center gap-1 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full ml-auto">&#10003; ${post.trustScore}%</span>`
-    : `<span class="text-[0.65rem] text-[#555] dark:text-[#888] ml-auto">${post.trustScore}%</span>`;
+    ? `<span style="background:rgba(74,158,187,0.1);color:#4a9ebb" class="inline-flex items-center gap-1 text-[0.6rem] font-semibold px-2 py-0.5 rounded-full ml-auto">&#10003; ${post.trustScore}%</span>`
+    : `<span class="text-[0.6rem] text-[#787068] ml-auto">${post.trustScore}%</span>`;
 
   return `
-    <article class="post-card flex flex-col gap-3 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]
-                    hover:border-black/[0.22] dark:hover:border-white/[0.22] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+    <article class="post-card flex flex-col gap-3 p-5 rounded-xl border transition-all duration-200 cursor-pointer
+                    bg-[#e8e5e0] border-[#1c1a16]/[0.08] dark:bg-[#1e1e1e] dark:border-[#f0ede8]/[0.08]
+                    hover:border-[#4a9ebb]/[0.3] hover:-translate-y-0.5"
              data-id="${post.id}">
       <div class="flex items-start justify-between gap-2">
-        <span class="text-[0.65rem] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full
-                     bg-black/[0.06] dark:bg-white/[0.06] text-[#555] dark:text-[#888]">${post.topic}</span>
+        <span class="text-[0.6rem] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full"
+              style="background:rgba(74,158,187,0.1);color:#4a9ebb">${post.topic}</span>
         <button class="bookmark-btn ${bookmarked} shrink-0" data-id="${post.id}" aria-label="Bookmark">
           ${BOOKMARK_ICON}
         </button>
       </div>
-      <h3 class="text-[0.9rem] font-bold text-black dark:text-white leading-snug">${post.title}</h3>
-      <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed"
+      <h3 class="text-[0.9rem] font-bold leading-snug text-[#1c1a16] dark:text-[#f0ede8]">${post.title}</h3>
+      <p class="text-sm text-[#787068] leading-relaxed"
          style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">
         ${post.excerpt}
       </p>
-      <div class="flex items-center gap-2 mt-auto pt-3 border-t border-black/[0.06] dark:border-white/[0.06]">
-        <div class="w-6 h-6 rounded-full bg-black/[0.1] dark:bg-white/[0.1] flex items-center justify-center
-                    text-[0.6rem] font-bold text-black dark:text-white shrink-0">${post.initials}</div>
-        <span class="text-xs text-[#555] dark:text-[#888] truncate">${post.author}</span>
-        <span class="text-xs text-[#555] dark:text-[#888] ml-auto shrink-0">${post.readTime} min</span>
+      <div class="flex items-center gap-2 mt-auto pt-3 border-t border-[#1c1a16]/[0.06] dark:border-[#f0ede8]/[0.06]">
+        <div class="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[0.6rem] font-bold
+                    bg-[#1c1a16]/[0.08] border border-[#1c1a16]/[0.08] text-[#1c1a16]
+                    dark:bg-[#f0ede8]/[0.08] dark:border-[#f0ede8]/[0.08] dark:text-[#f0ede8]">${post.initials}</div>
+        <span class="text-xs text-[#787068] truncate">${post.author}</span>
+        <span class="text-xs text-[#787068] ml-auto shrink-0">${post.readTime} min</span>
         ${verifiedHTML}
       </div>
     </article>`;
@@ -376,6 +469,7 @@ function filterPosts() {
 
 function initIndexPage() {
   if (!document.getElementById('posts-grid')) return;
+  if (document.getElementById('result-count')) return; // browse.html handles its own grid
 
   renderPosts(POSTS);
 
@@ -408,6 +502,92 @@ function initIndexPage() {
   });
 }
 
+// ===== BROWSE PAGE =====
+
+function initBrowsePage() {
+  const resultCount = document.getElementById('result-count');
+  if (!resultCount) return; // only on browse.html
+
+  // populate sidebar counts
+  const topics = ['all', 'Development', 'Productivity', 'Business', 'Health', 'Finance'];
+  topics.forEach(t => {
+    const el = document.getElementById(`count-${t}`);
+    if (!el) return;
+    el.textContent = t === 'all'
+      ? POSTS.length
+      : POSTS.filter(p => p.topic === t).length;
+  });
+
+  // stats
+  const verified = POSTS.filter(p => p.verified).length;
+  const avgTrust = Math.round(POSTS.reduce((s, p) => s + p.trustScore, 0) / POSTS.length);
+  const statTotal    = document.getElementById('stat-total');
+  const statVerified = document.getElementById('stat-verified');
+  const statTrust    = document.getElementById('stat-trust');
+  if (statTotal)    statTotal.textContent    = POSTS.length;
+  if (statVerified) statVerified.textContent = `${verified} / ${POSTS.length}`;
+  if (statTrust)    statTrust.textContent    = `${avgTrust}%`;
+
+  function getActiveTopic() {
+    return document.querySelector('.browse-topic-btn.active')?.dataset.topic || 'all';
+  }
+
+  function setActiveTopic(topic) {
+    document.querySelectorAll('.browse-topic-btn').forEach(b => {
+      const isActive = b.dataset.topic === topic;
+      b.classList.toggle('active', isActive);
+      b.classList.toggle('font-semibold', isActive);
+      b.classList.toggle('text-[#4a9ebb]', isActive);
+      b.classList.toggle('bg-[rgba(74,158,187,0.1)]', isActive);
+      b.classList.toggle('text-[#787068]', !isActive);
+    });
+    // sync mobile pills
+    document.querySelectorAll('#topic-filters-mobile .topic-filter').forEach(b => {
+      b.classList.toggle('active', b.dataset.topic === topic);
+    });
+  }
+
+  function filterAndRender() {
+    const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const topic = getActiveTopic();
+
+    const filtered = POSTS.filter(p => {
+      const topicOk  = topic === 'all' || p.topic === topic;
+      const searchOk = !query
+        || p.title.toLowerCase().includes(query)
+        || p.excerpt.toLowerCase().includes(query)
+        || p.author.toLowerCase().includes(query)
+        || p.topic.toLowerCase().includes(query)
+        || p.tags.some(t => t.toLowerCase().includes(query));
+      return topicOk && searchOk;
+    });
+
+    resultCount.textContent = `${filtered.length} post${filtered.length !== 1 ? 's' : ''}`;
+    renderPosts(filtered);
+  }
+
+  // sidebar topic buttons
+  document.querySelectorAll('.browse-topic-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActiveTopic(btn.dataset.topic);
+      filterAndRender();
+    });
+  });
+
+  // mobile topic pills
+  document.querySelectorAll('#topic-filters-mobile .topic-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActiveTopic(btn.dataset.topic);
+      filterAndRender();
+    });
+  });
+
+  // search
+  document.getElementById('search-input')?.addEventListener('input', filterAndRender);
+
+  filterAndRender();
+}
+
 // ===== POST PAGE =====
 
 function initPostPage() {
@@ -418,7 +598,7 @@ function initPostPage() {
 
   if (!post) {
     document.getElementById('post-content').innerHTML =
-      '<p style="color:rgb(var(--c-lo))">Post not found. <a href="/" style="color:rgb(var(--c-hi));text-decoration:underline">Go back home</a></p>';
+      '<p style="color:rgb(var(--c-muted))">Post not found. <a href="/" style="color:#4a9ebb;text-decoration:underline">Go back home</a></p>';
     return;
   }
 
@@ -448,7 +628,7 @@ function initPostPage() {
   const tagsEl = document.getElementById('post-tags');
   if (tagsEl) {
     tagsEl.innerHTML = post.tags.map(t =>
-      `<span class="text-xs font-medium px-3 py-1 rounded-full bg-black/[0.06] dark:bg-white/[0.06] text-[#555] dark:text-[#888] border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">${t}</span>`
+      `<span class="text-xs font-medium px-3 py-1 rounded-full border" style="background:rgba(74,158,187,0.08);color:#4a9ebb;border-color:rgba(74,158,187,0.2)">${t}</span>`
     ).join('');
   }
 
@@ -573,12 +753,380 @@ function escapeHTML(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// ===== SHARE SPACE DATA =====
+
+const SHARES_KEY = 'ws-shares';
+
+const SHARES_SEED = [
+  {
+    id: 'ss-1',
+    content: 'https://paulgraham.com/greatwork.html',
+    tags: ['writing', 'advice', 'essays'],
+    sharer: 'Marcus Webb',
+    sharerInitials: 'MW',
+    timestamp: '2026-04-12T06:15:00',
+    coSharers: 3
+  },
+  {
+    id: 'ss-2',
+    content: 'The best productivity system is the one you actually use. Switched from Notion to a plain text file and never looked back.',
+    tags: ['productivity', 'tools'],
+    sharer: 'Sarah Chen',
+    sharerInitials: 'SC',
+    timestamp: '2026-04-11T22:40:00',
+    coSharers: 0
+  },
+  {
+    id: 'ss-3',
+    content: 'https://github.com/sindresorhus/awesome',
+    tags: ['dev', 'resources', 'lists'],
+    sharer: 'Diego Fernandez',
+    sharerInitials: 'DF',
+    timestamp: '2026-04-11T18:20:00',
+    coSharers: 7
+  },
+  {
+    id: 'ss-4',
+    content: 'https://www.youtube.com/watch?v=arj7oStGLkU',
+    tags: ['talk', 'design', 'alan-kay'],
+    sharer: 'Nadia Volkov',
+    sharerInitials: 'NV',
+    timestamp: '2026-04-11T14:00:00',
+    coSharers: 1
+  },
+  {
+    id: 'ss-5',
+    content: 'Asking "why?" five times is not a technique — it\'s a mindset. Most engineers stop at the first answer because it\'s the comfortable one.',
+    tags: ['engineering', 'thinking'],
+    sharer: 'James O\'Brien',
+    sharerInitials: 'JO',
+    timestamp: '2026-04-10T09:30:00',
+    coSharers: 0
+  },
+  {
+    id: 'ss-6',
+    content: 'https://fs.blog/mental-models/',
+    tags: ['thinking', 'models', 'learning'],
+    sharer: 'Priya Rajan',
+    sharerInitials: 'PR',
+    timestamp: '2026-04-10T07:15:00',
+    coSharers: 5
+  },
+  {
+    id: 'ss-7',
+    content: 'Sleep is the single highest-leverage investment in cognitive performance. No supplement, diet, or workflow hack comes close.',
+    tags: ['health', 'performance', 'habits'],
+    sharer: 'Marcus Webb',
+    sharerInitials: 'MW',
+    timestamp: '2026-04-09T20:00:00',
+    coSharers: 0
+  },
+  {
+    id: 'ss-8',
+    content: 'https://www.swyx.io/learn-in-public',
+    tags: ['learning', 'career', 'advice'],
+    sharer: 'Sarah Chen',
+    sharerInitials: 'SC',
+    timestamp: '2026-04-09T11:45:00',
+    coSharers: 4
+  }
+];
+
+function getShares() {
+  try {
+    const stored = localStorage.getItem(SHARES_KEY);
+    return stored ? JSON.parse(stored) : [...SHARES_SEED];
+  } catch { return [...SHARES_SEED]; }
+}
+
+function saveShares(arr) {
+  localStorage.setItem(SHARES_KEY, JSON.stringify(arr));
+}
+
+// ===== SHARE SPACE HELPERS =====
+
+function isURL(str) {
+  return /^(https?:\/\/|www\.)/i.test(str.trim());
+}
+
+function extractDomain(url) {
+  try {
+    const u = new URL(url.startsWith('http') ? url : 'https://' + url);
+    return u.hostname.replace(/^www\./, '');
+  } catch { return url; }
+}
+
+function timeAgo(isoString) {
+  const diff = Date.now() - new Date(isoString).getTime();
+  const mins  = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days  = Math.floor(diff / 86400000);
+  if (mins  < 1)  return 'just now';
+  if (mins  < 60) return `${mins}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days  < 7)  return `${days}d ago`;
+  return new Date(isoString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function shareCardHTML(share, activeTag) {
+  const url      = isURL(share.content);
+  const domain   = url ? extractDomain(share.content) : null;
+  const faviconURL = domain
+    ? `https://www.google.com/s2/favicons?sz=16&domain=${domain}`
+    : null;
+
+  const sourceBadge = url ? `
+    <div class="flex items-center gap-1.5 mb-3">
+      <img src="${faviconURL}" width="14" height="14" alt="" class="rounded-sm opacity-70" onerror="this.style.display='none'" />
+      <span class="text-[0.6rem] font-semibold tracking-wide text-[#787068]">${domain}</span>
+    </div>` : '';
+
+  const contentHTML = url
+    ? `<a href="${share.content}" target="_blank" rel="noopener"
+          class="text-sm font-medium text-[#1c1a16] dark:text-[#f0ede8] hover:text-[#4a9ebb] dark:hover:text-[#4a9ebb] transition-colors leading-snug break-all"
+          onclick="event.stopPropagation()">${share.content}</a>`
+    : `<p class="text-sm text-[#1c1a16] dark:text-[#f0ede8] leading-relaxed"
+          style="display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden">${escapeHTML(share.content)}</p>`;
+
+  const tagsHTML = share.tags.length ? `
+    <div class="flex flex-wrap gap-1.5 mt-3">
+      ${share.tags.map(t => `
+        <button class="ss-tag-pill text-[0.6rem] font-semibold px-2 py-0.5 rounded-full transition-colors ${t === activeTag ? 'bg-[rgba(74,158,187,0.18)] text-[#4a9ebb]' : 'bg-[rgba(74,158,187,0.07)] text-[#787068] hover:text-[#4a9ebb] hover:bg-[rgba(74,158,187,0.14)]'}"
+               data-tag="${t}">${t}</button>
+      `).join('')}
+    </div>` : '';
+
+  const coShareBadge = share.coSharers > 0 ? `
+    <span class="flex items-center gap-1 text-[0.6rem] text-[#787068]"
+          title="${share.coSharers} other${share.coSharers > 1 ? 's' : ''} shared this">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      ${share.coSharers + 1}
+    </span>` : '';
+
+  return `
+    <article class="share-card flex flex-col gap-0 p-5 rounded-xl border transition-all duration-200
+                    bg-[#e8e5e0] border-black/[0.08] dark:bg-[#1e1e1e] dark:border-[#f0ede8]/[0.08]
+                    hover:border-[#4a9ebb]/[0.25] hover:-translate-y-0.5"
+             data-id="${share.id}">
+      ${sourceBadge}
+      ${contentHTML}
+      ${tagsHTML}
+      <div class="flex items-center gap-2 mt-4 pt-3.5 border-t border-black/[0.06] dark:border-[#f0ede8]/[0.05]">
+        <div class="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[0.6rem] font-bold
+                    bg-[#1c1a16]/[0.08] text-[#1c1a16] dark:bg-[#f0ede8]/[0.08] dark:text-[#f0ede8]">${share.sharerInitials}</div>
+        <span class="text-xs text-[#787068] truncate">${share.sharer}</span>
+        <span class="text-xs text-[#787068] ml-auto shrink-0">${timeAgo(share.timestamp)}</span>
+        ${coShareBadge}
+      </div>
+    </article>`;
+}
+
+// ===== SHARE SPACE PAGE =====
+
+function initShareSpace() {
+  if (!document.getElementById('share-feed')) return;
+
+  // seed to localStorage if first visit
+  if (!localStorage.getItem(SHARES_KEY)) {
+    saveShares([...SHARES_SEED]);
+  }
+
+  let activeTag = null;
+
+  // ── Tag pill input system ──
+  let currentTags = [];
+
+  function renderFormPills() {
+    const display = document.getElementById('tag-pills-display');
+    const input   = document.getElementById('tag-input');
+    if (!display) return;
+    display.innerHTML = currentTags.map(t => `
+      <span class="inline-flex items-center gap-1 text-[0.65rem] font-semibold px-2 py-0.5 rounded-full"
+            style="background:rgba(74,158,187,0.14);color:#4a9ebb">
+        ${t}
+        <button type="button" data-remove="${t}"
+                class="hover:opacity-70 transition-opacity leading-none text-[0.7rem]">&times;</button>
+      </span>`).join('');
+
+    // wire remove buttons
+    display.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentTags = currentTags.filter(x => x !== btn.dataset.remove);
+        renderFormPills();
+      });
+    });
+
+    if (input) input.placeholder = currentTags.length ? '' : 'add tags';
+  }
+
+  function addFormTag(raw) {
+    const tag = raw.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+    if (!tag || currentTags.includes(tag) || currentTags.length >= 6) return;
+    currentTags.push(tag);
+    renderFormPills();
+  }
+
+  const tagInput = document.getElementById('tag-input');
+
+  function commitTagInput() {
+    if (tagInput?.value.trim()) {
+      addFormTag(tagInput.value);
+      tagInput.value = '';
+      tagInput.focus();
+    }
+  }
+
+  document.getElementById('add-tag-btn')?.addEventListener('click', commitTagInput);
+
+  tagInput?.addEventListener('keydown', e => {
+    if (e.key === ',' || e.key === 'Enter') {
+      e.preventDefault();
+      addFormTag(tagInput.value.replace(',', ''));
+      tagInput.value = '';
+    } else if (e.key === 'Backspace' && !tagInput.value && currentTags.length) {
+      currentTags.pop();
+      renderFormPills();
+    }
+  });
+  tagInput?.addEventListener('blur', () => {
+    if (tagInput.value.trim()) commitTagInput();
+  });
+
+  // ── Feed render ──
+  function renderFeed(filter) {
+    const feedEl   = document.getElementById('share-feed');
+    const emptyEl  = document.getElementById('share-empty');
+    const countEl  = document.getElementById('share-count');
+    const shares   = getShares();
+    const filtered = filter
+      ? shares.filter(s => s.tags.includes(filter))
+      : shares;
+
+    if (countEl) countEl.textContent = `${filtered.length} share${filtered.length !== 1 ? 's' : ''}`;
+
+    if (!filtered.length) {
+      if (feedEl)  feedEl.innerHTML  = '';
+      if (emptyEl) emptyEl.classList.remove('hidden');
+      return;
+    }
+    if (emptyEl) emptyEl.classList.add('hidden');
+    feedEl.innerHTML = filtered.map(s => shareCardHTML(s, filter)).join('');
+
+    // tag pill clicks inside feed
+    feedEl.querySelectorAll('.ss-tag-pill').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const t = btn.dataset.tag;
+        activeTag = activeTag === t ? null : t;
+        renderFeed(activeTag);
+        renderSidebarFilters();
+      });
+    });
+  }
+
+  // ── Sidebar tag filters ──
+  function allTags() {
+    const shares = getShares();
+    const freq   = {};
+    shares.forEach(s => s.tags.forEach(t => { freq[t] = (freq[t] || 0) + 1; }));
+    return Object.entries(freq).sort((a, b) => b[1] - a[1]);
+  }
+
+  function renderSidebarFilters() {
+    const sidebar  = document.getElementById('sidebar-tag-filters');
+    const clearBtn = document.getElementById('clear-tag-filter');
+    if (!sidebar) return;
+
+    sidebar.innerHTML = allTags().map(([t, count]) => `
+      <button class="ss-sidebar-tag flex items-center justify-between gap-2 w-full text-left px-3 py-2 rounded-lg text-xs transition-colors
+                     ${t === activeTag
+                       ? 'font-semibold text-[#4a9ebb] bg-[rgba(74,158,187,0.1)]'
+                       : 'text-[#787068] hover:text-[#4a9ebb] hover:bg-[rgba(74,158,187,0.06)]'}"
+              data-tag="${t}">
+        <span>${t}</span>
+        <span class="text-[0.6rem] tabular-nums opacity-60">${count}</span>
+      </button>`).join('');
+
+    if (clearBtn) clearBtn.classList.toggle('hidden', !activeTag);
+
+    sidebar.querySelectorAll('.ss-sidebar-tag').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.tag;
+        activeTag = activeTag === t ? null : t;
+        renderFeed(activeTag);
+        renderSidebarFilters();
+      });
+    });
+  }
+
+  document.getElementById('clear-tag-filter')?.addEventListener('click', () => {
+    activeTag = null;
+    renderFeed(null);
+    renderSidebarFilters();
+  });
+
+  // ── Form submit ──
+  document.getElementById('share-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const input   = document.getElementById('share-input');
+    const content = input?.value.trim();
+    if (!content) return;
+
+    // add stray tag from input field
+    if (tagInput?.value.trim()) {
+      addFormTag(tagInput.value);
+      tagInput.value = '';
+    }
+
+    const newShare = {
+      id:             `ss-${Date.now()}`,
+      content,
+      tags:           [...currentTags],
+      sharer:         'you',
+      sharerInitials: 'YO',
+      timestamp:      new Date().toISOString(),
+      coSharers:      0
+    };
+
+    const shares = getShares();
+    // check if same URL already shared → bump coSharers
+    if (isURL(content)) {
+      const existing = shares.find(s => s.content === content);
+      if (existing) existing.coSharers++;
+    }
+    shares.unshift(newShare);
+    saveShares(shares);
+
+    // reset form
+    input.value   = '';
+    currentTags   = [];
+    renderFormPills();
+
+    activeTag = null;
+    renderFeed(null);
+    renderSidebarFilters();
+    showToast('shared!');
+  });
+
+  // ── Init ──
+  renderFeed(null);
+  renderSidebarFilters();
+}
+
 // ===== BOOT =====
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initReadingMode();
   initMobileNav();
   initScrollReveal();
   initIndexPage();
+  initBrowsePage();
   initPostPage();
+  initShareSpace();
 });

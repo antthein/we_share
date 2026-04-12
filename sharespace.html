@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>share_space — we_share</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-[#fafaf9] dark:bg-[#111111] text-[#1c1a16] dark:text-[#f0ede8] font-sans antialiased">
+
+  <!-- ===== NAV ===== -->
+  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-[#fafaf9]/[0.9] dark:bg-[#111111]/[0.9] backdrop-blur-md border-b border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+    <a href="index.html" class="text-[1.2rem] font-extrabold tracking-tight text-[#1c1a16] dark:text-[#f0ede8]">we<span style="color:#4a9ebb">_</span>share</a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="index.html"      class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">home</a></li>
+      <li><a href="sharespace.html" class="text-sm font-semibold text-[#4a9ebb]">share_space</a></li>
+      <li><a href="browse.html"     class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">browse</a></li>
+      <li><a href="index.html#about"  class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">about</a></li>
+      <li><a href="index.html#how"    class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">how it works</a></li>
+      <li>
+        <a href="index.html#join" class="text-sm font-semibold px-4 py-2 rounded-lg border border-black/[0.12] dark:border-[#f0ede8]/[0.12] text-[#1c1a16] dark:text-[#f0ede8] hover:border-[#4a9ebb]/[0.4] hover:text-[#4a9ebb] transition-all">
+          join
+        </a>
+      </li>
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <!-- Theme toggle -->
+      <button id="theme-toggle" aria-label="Toggle theme"
+              class="p-2 rounded-lg text-[#787068] hover:text-[#4a9ebb] transition-all">
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button id="hamburger" aria-label="Toggle menu" class="md:hidden flex flex-col gap-[5px] p-1">
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 bg-[#fafaf9] dark:bg-[#111111] border-b border-black/[0.08] dark:border-[#f0ede8]/[0.07] px-8 py-6 flex flex-col gap-5">
+    <a href="index.html"      class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">home</a>
+    <a href="sharespace.html" class="text-sm font-semibold text-[#4a9ebb]">share_space</a>
+    <a href="browse.html"     class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">browse</a>
+    <a href="index.html#about"  class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">about</a>
+    <a href="index.html#how"    class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">how it works</a>
+    <a href="index.html#join"   class="text-sm font-semibold text-[#4a9ebb]">join &rarr;</a>
+  </div>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="max-w-[1100px] mx-auto px-6 pt-14 pb-10">
+    <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3">community</p>
+    <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] mb-2">share_space</h1>
+    <p class="text-[#787068] text-sm">drop a link or a thought. quick and public.</p>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="max-w-[1100px] mx-auto px-6 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_248px] gap-8 items-start">
+
+      <!-- ── FEED COLUMN ── -->
+      <div>
+
+        <!-- Submission form -->
+        <form id="share-form" class="mb-8 p-5 rounded-xl border bg-[#f0ede8] border-black/[0.08] dark:bg-[#1e1e1e] dark:border-[#f0ede8]/[0.08]">
+          <textarea id="share-input" rows="2"
+                    placeholder="drop a link or a thought…"
+                    class="w-full bg-transparent resize-none outline-none text-sm text-[#1c1a16] dark:text-[#f0ede8] placeholder:text-[#787068] mb-4 leading-relaxed block"></textarea>
+
+          <!-- Tag pill input -->
+          <div class="flex gap-2 items-start mb-4">
+            <div id="tag-input-area"
+                 class="flex flex-wrap gap-2 items-center flex-1 min-h-[36px] px-3 py-2 rounded-lg
+                        bg-[#fafaf9] border border-black/[0.08]
+                        dark:bg-[#111111] dark:border-[#f0ede8]/[0.08]
+                        cursor-text transition-colors focus-within:border-[#4a9ebb]/[0.4]">
+              <div id="tag-pills-display" class="flex flex-wrap gap-1.5 items-center"></div>
+              <input id="tag-input" type="text"
+                     placeholder="add tags…"
+                     autocomplete="off"
+                     class="bg-transparent outline-none text-xs text-[#1c1a16] dark:text-[#f0ede8] placeholder:text-[#787068] flex-1 min-w-[80px] h-5" />
+            </div>
+            <button type="button" id="add-tag-btn"
+                    class="shrink-0 h-[36px] px-3 rounded-lg border text-xs font-semibold transition-colors
+                           border-black/[0.1] text-[#787068] hover:border-[#4a9ebb]/[0.4] hover:text-[#4a9ebb]
+                           dark:border-[#f0ede8]/[0.1] dark:text-[#787068]
+                           bg-[#fafaf9] dark:bg-[#111111]">
+              + tag
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between gap-3">
+            <span class="text-[0.65rem] text-[#787068]">sharing as <span style="color:#4a9ebb" class="font-medium">guest</span></span>
+            <button type="submit"
+                    class="ws-btn-primary shrink-0"
+                    style="padding:0.4rem 1.1rem;font-size:0.8rem;border-radius:8px">share</button>
+          </div>
+        </form>
+
+        <!-- Sort / count row -->
+        <div class="flex items-center justify-between mb-5">
+          <span id="share-count" class="text-xs text-[#787068]"></span>
+          <span class="text-[0.6rem] font-semibold tracking-wider uppercase text-[#787068]">recent first</span>
+        </div>
+
+        <!-- Feed -->
+        <div id="share-feed" class="flex flex-col gap-4"></div>
+
+        <!-- Empty state -->
+        <div id="share-empty" class="hidden text-center py-16">
+          <p class="text-2xl mb-3">&#128230;</p>
+          <p class="text-[#787068] text-sm">nothing here yet — be the first to share.</p>
+        </div>
+      </div>
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="sticky top-[80px] hidden lg:block">
+        <p class="text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-[#787068] mb-3">filter by tag</p>
+        <div id="sidebar-tag-filters" class="flex flex-col gap-1.5"></div>
+        <button id="clear-tag-filter" class="hidden mt-4 text-[0.65rem] text-[#787068] hover:text-[#4a9ebb] transition-colors">
+          &times; clear filter
+        </button>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-[#f0ede8] dark:bg-[#181818] border-t border-black/[0.06] dark:border-[#f0ede8]/[0.06] pt-16 pb-8">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-12 border-b border-black/[0.06] dark:border-[#f0ede8]/[0.06] mb-8">
+        <div>
+          <span class="text-[1.2rem] font-extrabold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] block mb-3">we<span style="color:#4a9ebb">_</span>share</span>
+          <p class="text-sm text-[#787068] leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Product</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Features</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Topics</a>
+          <a href="sharespace.html" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Share Space</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Company</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">About</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Blog</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Careers</a>
+        </div>
+        <div class="flex flex-col gap-3">
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Legal</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Privacy</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Terms</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Guidelines</a>
+        </div>
+      </div>
+      <p class="text-xs text-[#787068]">&copy; 2026 we_share. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

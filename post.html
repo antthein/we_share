@@ -1,72 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>we_share</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          fontFamily: {
+            sans:    ['Inter',  'system-ui', 'sans-serif'],
+            display: ['Inter', 'system-ui', 'sans-serif'],
           }
+        }
       }
     }
   </script>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-white dark:bg-[#111111] text-black dark:text-white font-sans antialiased">
+<body class="ws-bg ws-text font-sans antialiased transition-colors duration-300">
 
   <!-- ===== NAV ===== -->
-  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-white/[0.88] dark:bg-[#111111]/[0.88] backdrop-blur-md border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-    <a href="/" class="text-xl font-black tracking-tight text-black dark:text-white">we_share</a>
+  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 ws-bg backdrop-blur-md border-b ws-border" style="background-color:rgb(var(--c-bg)/0.9)">
+    <a href="/" class="text-[1.2rem] font-extrabold tracking-tight ws-text">we<span style="color:#4a9ebb">_</span>share</a>
 
     <ul class="hidden md:flex items-center gap-8">
-      <li><a href="/#browse" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Browse</a></li>
-      <li><a href="/#about"  class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a></li>
-      <li><a href="/#join"   class="text-sm font-semibold px-4 py-2 rounded-lg border border-black/[0.12] dark:border-white/[0.12] text-black dark:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-all">Join</a></li>
+      <li><a href="index.html"      class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">home</a></li>
+      <li><a href="sharespace.html" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">share_space</a></li>
+      <li><a href="browse.html"     class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">browse</a></li>
+      <li><a href="index.html#about" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">about</a></li>
     </ul>
 
     <div class="flex items-center gap-3">
-      <button id="theme-toggle" aria-label="Toggle theme"
-              class="p-2 rounded-lg text-[#555] dark:text-[#888] hover:text-black dark:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.06] transition-all">
-        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <!-- Reading mode toggle: sun = in dark, click for light reading; moon = in light, click for dark -->
+      <button id="theme-toggle" aria-label="Toggle reading mode"
+              class="p-2 rounded-lg ws-muted hover:text-[#4a9ebb] transition-all">
+        <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
           <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
           <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
+        <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
       <button id="hamburger" aria-label="Toggle menu" class="md:hidden flex flex-col gap-[5px] p-1">
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
+        <span class="block w-5 h-0.5 rounded" style="background:rgb(var(--c-text))"></span>
+        <span class="block w-5 h-0.5 rounded" style="background:rgb(var(--c-text))"></span>
+        <span class="block w-5 h-0.5 rounded" style="background:rgb(var(--c-text))"></span>
       </button>
     </div>
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 bg-white dark:bg-[#111111] border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] px-8 py-6 flex flex-col gap-5">
-    <a href="/#browse" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Browse</a>
-    <a href="/#about"  class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a>
-    <a href="/#join"   class="text-sm font-semibold text-black dark:text-white">Join &rarr;</a>
+  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 ws-bg border-b ws-border px-8 py-6 flex flex-col gap-5">
+    <a href="index.html"      class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">home</a>
+    <a href="sharespace.html" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">share_space</a>
+    <a href="browse.html"     class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">browse</a>
+    <a href="index.html#about" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">about</a>
   </div>
 
   <!-- ===== ARTICLE ===== -->
   <main class="max-w-[740px] mx-auto px-6 py-12">
 
     <!-- Back -->
-    <a href="/" class="inline-flex items-center gap-2 text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors mb-10 group">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    <a href="/" class="inline-flex items-center gap-2 text-sm ws-muted hover:text-[#4a9ebb] transition-colors mb-10 group">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
            class="group-hover:-translate-x-0.5 transition-transform">
         <polyline points="15 18 9 12 15 6"/>
       </svg>
@@ -79,56 +85,54 @@
       <!-- Meta row -->
       <div class="flex items-center flex-wrap gap-3 mb-5">
         <span id="post-topic"
-              class="text-[0.65rem] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-black/[0.06] dark:bg-white/[0.06] text-[#555] dark:text-[#888]"></span>
-        <span id="post-readtime" class="text-xs text-[#555] dark:text-[#888]"></span>
-        <span class="text-[#555] dark:text-[#888] text-xs">&middot;</span>
-        <span id="post-date" class="text-xs text-[#555] dark:text-[#888]"></span>
+              class="text-[0.6rem] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full"
+              style="background:rgba(74,158,187,0.1);color:#4a9ebb"></span>
+        <span id="post-readtime" class="text-xs ws-muted"></span>
+        <span class="ws-muted text-xs">&middot;</span>
+        <span id="post-date" class="text-xs ws-muted"></span>
         <span id="post-verified"
               class="hidden ml-auto inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full"
-              style="background:rgba(34,197,94,0.12);color:#22c55e"></span>
+              style="background:rgba(74,158,187,0.1);color:#4a9ebb"></span>
       </div>
 
       <!-- Title -->
       <h1 id="post-title"
-          class="text-[2rem] lg:text-[2.6rem] font-black tracking-tight text-black dark:text-white leading-tight mb-8"></h1>
+          class="text-[2rem] lg:text-[2.6rem] font-black tracking-tight ws-text leading-tight mb-8"></h1>
 
       <!-- Author -->
-      <div class="flex items-center gap-3 mb-8 pb-8 border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
+      <div class="flex items-center gap-3 mb-8 pb-8 border-b ws-border">
         <div id="post-avatar"
-             class="w-10 h-10 rounded-full bg-black/[0.1] dark:bg-white/[0.1] border border-black/[0.1] dark:border-white/[0.1] flex items-center justify-center text-sm font-bold text-black dark:text-white shrink-0"></div>
+             class="w-10 h-10 rounded-full border flex items-center justify-center text-sm font-bold shrink-0 ws-text ws-border"
+             style="background:rgb(var(--c-surface))"></div>
         <div>
-          <p id="post-author"  class="text-sm font-semibold text-black dark:text-white leading-tight"></p>
-          <p id="post-expertise" class="text-xs text-[#555] dark:text-[#888] mt-0.5"></p>
+          <p id="post-author"    class="text-sm font-semibold ws-text leading-tight"></p>
+          <p id="post-expertise" class="text-xs ws-muted mt-0.5"></p>
         </div>
       </div>
 
       <!-- Action bar: vote + bookmark -->
       <div class="flex items-center gap-3 flex-wrap">
-
         <button id="upvote-btn" class="vote-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="18 15 12 9 6 15"/>
           </svg>
           <span id="upvote-count">0</span>
           Upvote
         </button>
-
         <button id="vouch-btn" class="vote-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           <span id="vouch-count">0</span>
           Vouch
         </button>
-
-        <button id="bookmark-btn" class="bookmark-btn ml-auto flex items-center gap-2 text-sm font-semibold text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        <button id="bookmark-btn" class="bookmark-btn ml-auto flex items-center gap-2 text-sm font-semibold transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span id="bookmark-label">Save</span>
         </button>
-
       </div>
     </header>
 
@@ -136,27 +140,27 @@
     <div id="post-content" class="prose mb-12"></div>
 
     <!-- Tags -->
-    <div id="post-tags" class="flex gap-2 flex-wrap pt-8 border-t border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] mb-16"></div>
+    <div id="post-tags" class="flex gap-2 flex-wrap pt-8 border-t ws-border mb-16"></div>
 
     <!-- ===== Comments ===== -->
     <section>
-      <h2 class="text-xl font-bold text-black dark:text-white mb-1">
+      <h2 class="text-xl font-bold ws-text mb-1">
         Discussion
-        <span id="comment-count" class="text-[#555] dark:text-[#888] font-normal text-base ml-1"></span>
+        <span id="comment-count" class="ws-muted font-normal text-base ml-1"></span>
       </h2>
-      <p class="text-sm text-[#555] dark:text-[#888] mb-8">All comments are public and attached to your name.</p>
+      <p class="text-sm ws-muted mb-8">All comments are public and attached to your name.</p>
 
       <!-- Add comment -->
       <form id="comment-form"
-            class="mb-10 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
+            class="mb-10 p-5 rounded-xl border ws-border ws-surface">
         <div class="flex flex-col sm:flex-row gap-3 mb-3">
           <input id="comment-name" type="text" placeholder="Your name" required
-                 class="flex-1 px-4 py-2.5 bg-white dark:bg-[#111111] rounded-lg border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] focus:border-black/[0.3] dark:focus:border-white/[0.3]
-                        text-sm text-black dark:text-white placeholder:text-[#555] dark:text-[#888] outline-none transition-colors font-sans" />
+                 class="flex-1 px-4 py-2.5 rounded-lg border ws-border ws-text text-sm outline-none font-sans transition-colors"
+                 style="background:rgb(var(--c-bg));color:rgb(var(--c-text))" />
         </div>
         <textarea id="comment-text" placeholder="Share your thoughts or add to the discussion..." required rows="3"
-                  class="w-full px-4 py-3 bg-white dark:bg-[#111111] rounded-lg border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] focus:border-black/[0.3] dark:focus:border-white/[0.3]
-                         text-sm text-black dark:text-white placeholder:text-[#555] dark:text-[#888] outline-none transition-colors resize-none font-sans"></textarea>
+                  class="w-full px-4 py-3 rounded-lg border ws-border ws-text text-sm outline-none transition-colors resize-none font-sans"
+                  style="background:rgb(var(--c-bg));color:rgb(var(--c-text))"></textarea>
         <div class="flex justify-end mt-3">
           <button type="submit" class="ws-btn-primary text-sm py-2.5 px-5">Post comment</button>
         </div>
@@ -169,33 +173,33 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="bg-[#f0f0f0] dark:bg-[#181818] border-t border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] pt-14 pb-8 mt-16">
+  <footer class="border-t ws-border pt-14 pb-8 mt-16" style="background:rgb(var(--c-bgalt))">
     <div class="max-w-[1100px] mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-10 border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-10 border-b ws-border mb-8">
         <div>
-          <a href="/" class="text-xl font-black tracking-tight text-black dark:text-white block mb-3">we_share</a>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
+          <a href="/" class="text-[1.2rem] font-extrabold tracking-tight ws-text block mb-3">we<span style="color:#4a9ebb">_</span>share</a>
+          <p class="text-sm ws-muted leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Product</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Features</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Topics</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Community</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase ws-text mb-1">Product</p>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Features</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Topics</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Community</a>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Company</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Blog</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Careers</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase ws-text mb-1">Company</p>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">About</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Blog</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Careers</a>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Legal</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Privacy</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Terms</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Guidelines</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase ws-text mb-1">Legal</p>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Privacy</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Terms</a>
+          <a href="#" class="text-sm ws-muted hover:text-[#4a9ebb] transition-colors">Guidelines</a>
         </div>
       </div>
-      <p class="text-xs text-[#555] dark:text-[#888]">&copy; 2026 we_share. All rights reserved.</p>
+      <p class="text-xs ws-muted">&copy; 2026 we_share. All rights reserved.</p>
     </div>
   </footer>
 

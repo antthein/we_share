@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>we_share — Knowledge Sharing, Legit and Trustworthy</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,35 +14,39 @@
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          fontFamily: {
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Inter', 'system-ui', 'sans-serif'],
           }
+        }
       }
     }
   </script>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-white dark:bg-[#111111] text-black dark:text-white font-sans antialiased">
+<body class="bg-[#fafaf9] dark:bg-[#111111] text-[#1c1a16] dark:text-[#f0ede8] font-sans antialiased">
 
   <!-- ===== NAV ===== -->
-  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-white/[0.88] dark:bg-[#111111]/[0.88] backdrop-blur-md border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-    <a href="/" class="text-xl font-black tracking-tight text-black dark:text-white">we_share</a>
+  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 bg-[#fafaf9]/[0.9] dark:bg-[#111111]/[0.9] backdrop-blur-md border-b border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+    <a href="/" class="text-[1.2rem] font-extrabold tracking-tight text-[#1c1a16] dark:text-[#f0ede8]">we<span style="color:#4a9ebb">_</span>share</a>
 
     <ul class="hidden md:flex items-center gap-8">
-      <li><a href="#browse" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Browse</a></li>
-      <li><a href="#about"  class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a></li>
-      <li><a href="#how"    class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">How it works</a></li>
+      <li><a href="index.html"      class="text-sm font-semibold text-[#4a9ebb]">home</a></li>
+      <li><a href="sharespace.html" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">share_space</a></li>
+      <li><a href="browse.html"     class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">browse</a></li>
+      <li><a href="#about"  class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">about</a></li>
+      <li><a href="#how"    class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">how it works</a></li>
       <li>
-        <a href="#join" class="text-sm font-semibold px-4 py-2 rounded-lg border border-black/[0.12] dark:border-white/[0.12] text-black dark:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-all">
+        <a href="#join" class="text-sm font-semibold px-4 py-2 rounded-lg border border-black/[0.12] dark:border-[#f0ede8]/[0.12] text-[#1c1a16] dark:text-[#f0ede8] hover:border-[#4a9ebb]/[0.4] hover:text-[#4a9ebb] transition-all">
           Join
         </a>
       </li>
     </ul>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <!-- Theme toggle -->
       <button id="theme-toggle" aria-label="Toggle theme"
-              class="p-2 rounded-lg text-[#555] dark:text-[#888] hover:text-black dark:text-white hover:bg-black/[0.06] dark:hover:bg-white/[0.06] transition-all">
-        <!-- Sun (shown in dark mode to switch to light) -->
+              class="p-2 rounded-lg text-[#787068] hover:text-[#4a9ebb] transition-all">
         <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -49,45 +54,44 @@
           <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon (shown in light mode to switch to dark) -->
         <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-
-      <!-- Hamburger -->
       <button id="hamburger" aria-label="Toggle menu" class="md:hidden flex flex-col gap-[5px] p-1">
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
-        <span class="block w-5 h-0.5 bg-black dark:bg-white rounded"></span>
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
+        <span class="block w-5 h-0.5 bg-[#1c1a16] dark:bg-[#f0ede8] rounded"></span>
       </button>
     </div>
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 bg-white dark:bg-[#111111] border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] px-8 py-6 flex flex-col gap-5">
-    <a href="#browse" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Browse</a>
-    <a href="#about"  class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a>
-    <a href="#how"    class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">How it works</a>
-    <a href="#join"   class="text-sm font-semibold text-black dark:text-white">Join &rarr;</a>
+  <div id="mobile-menu" class="hidden fixed top-[65px] left-0 right-0 z-40 bg-[#fafaf9] dark:bg-[#111111] border-b border-black/[0.08] dark:border-[#f0ede8]/[0.07] px-8 py-6 flex flex-col gap-5">
+    <a href="index.html"      class="text-sm font-semibold text-[#4a9ebb]">home</a>
+    <a href="sharespace.html" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">share_space</a>
+    <a href="browse.html"     class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">browse</a>
+    <a href="#about"  class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">about</a>
+    <a href="#how"    class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">how it works</a>
+    <a href="#join"   class="text-sm font-semibold text-[#4a9ebb]">join &rarr;</a>
   </div>
 
   <!-- ===== HERO ===== -->
   <section class="max-w-[1100px] mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-2 items-center gap-16 min-h-[calc(100vh-65px)]">
-    <div>
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-4">
-        Core &rsaquo; Knowledge Sharing
+    <div class="min-w-0">
+      <p class="text-[0.7rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-5">
+        Knowledge &rsaquo; Shared honestly
       </p>
-      <h1 class="text-[5rem] lg:text-[7rem] font-black leading-none tracking-[-0.04em] text-black dark:text-white mb-6">
-        we_share
+      <h1 class="text-[2.8rem] sm:text-[4rem] md:text-[5rem] lg:text-[5.5rem] font-extrabold leading-none tracking-normal text-[#1c1a16] dark:text-[#f0ede8] mb-6">
+        we<span style="color:#4a9ebb">_</span>share
       </h1>
-      <p class="text-lg text-[#555] dark:text-[#888] mb-10 max-w-[42ch] leading-relaxed">
-        Knowledge sharing as we see in everyday.<br />
-        Legit and trustworthy.
+      <p class="text-lg text-[#787068] mb-10 max-w-[42ch] leading-relaxed">
+        Real knowledge from real people.<br />
+        Community-vetted. No noise.
       </p>
       <div class="flex items-center gap-6 flex-wrap">
         <a href="#join" class="ws-btn-primary">Start Sharing</a>
-        <a href="#browse" class="text-sm text-[#555] dark:text-[#888] font-semibold hover:text-black dark:text-white transition-colors">
+        <a href="#browse" class="text-sm text-[#787068] font-semibold hover:text-[#4a9ebb] transition-colors">
           Browse posts &darr;
         </a>
       </div>
@@ -96,57 +100,57 @@
     <!-- Orbit visual -->
     <div class="hidden lg:flex justify-center items-center" aria-hidden="true">
       <div class="orbit relative w-[320px] h-[320px]">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] rounded-full border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] rounded-full border border-black/[0.06] dark:border-[#f0ede8]/[0.06]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] rounded-full border border-black/[0.06] dark:border-[#f0ede8]/[0.06]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-black/[0.06] dark:border-[#f0ede8]/[0.06]"></div>
         <div class="orbit__dot orbit__dot--1"></div>
         <div class="orbit__dot orbit__dot--2"></div>
         <div class="orbit__dot orbit__dot--3"></div>
         <div class="orbit__dot orbit__dot--4"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#e5e5e5] dark:bg-[#1e1e1e] border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] flex items-center justify-center text-2xl font-black text-black dark:text-white">K</div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#e8e5e0] dark:bg-[#1e1e1e] border border-[#4a9ebb]/[0.3] flex items-center justify-center text-xl font-extrabold text-[#4a9ebb]">K</div>
       </div>
     </div>
   </section>
 
   <!-- ===== MARQUEE ===== -->
-  <div class="overflow-hidden border-t border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] py-3 bg-[#f0f0f0] dark:bg-[#181818]" aria-hidden="true">
+  <div class="overflow-hidden border-t border-b border-black/[0.06] dark:border-[#f0ede8]/[0.06] py-3 bg-[#f0ede8] dark:bg-[#181818]" aria-hidden="true">
     <div class="marquee-track">
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Design</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Development</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Science</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Finance</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Health</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Philosophy</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Engineering</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Art</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Business</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Education</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Design</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Development</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Science</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Finance</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Health</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Philosophy</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Engineering</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Art</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Business</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
-      <span class="text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-[#555] dark:text-[#888]">Education</span><span class="text-[#555] dark:text-[#888] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Design</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Development</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Science</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Finance</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Health</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Philosophy</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Engineering</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Art</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Business</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Education</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Design</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Development</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Science</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Finance</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Health</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Philosophy</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Engineering</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Art</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Business</span><span class="text-[#787068] mx-4">&bull;</span>
+      <span class="text-[0.65rem] font-semibold tracking-[0.1em] uppercase text-[#787068]">Education</span><span class="text-[#787068] mx-4">&bull;</span>
     </div>
   </div>
 
   <!-- ===== BROWSE & SEARCH ===== -->
   <section class="py-20" id="browse">
     <div class="max-w-[1100px] mx-auto px-6">
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3">Discover</p>
-      <h2 class="text-3xl lg:text-[2.5rem] font-bold tracking-tight text-black dark:text-white mb-8">Browse posts</h2>
+      <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3">Discover</p>
+      <h2 class="text-3xl lg:text-[2.5rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] mb-8">Browse posts</h2>
 
       <!-- Search -->
       <div class="relative mb-5">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-[#555] dark:text-[#888] w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-[#787068] w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
         <input id="search-input" type="text" placeholder="Search posts, topics, authors..."
-               class="w-full pl-11 pr-4 py-3 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] text-black dark:text-white placeholder:text-[#555] dark:text-[#888] text-sm outline-none focus:border-black/[0.3] dark:focus:border-white/[0.3] transition-colors" />
+               class="w-full pl-11 pr-4 py-3 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.08] text-[#1c1a16] dark:text-[#f0ede8] placeholder:text-[#787068] text-sm outline-none focus:border-[#4a9ebb]/[0.4] transition-colors" />
       </div>
 
       <!-- Topic filters -->
@@ -165,45 +169,45 @@
       <!-- Empty state -->
       <div id="no-results" class="hidden text-center py-16">
         <p class="text-3xl mb-3">&#128269;</p>
-        <p class="text-[#555] dark:text-[#888] text-sm">No posts match your search. Try different keywords.</p>
+        <p class="text-[#787068] text-sm">No posts match your search. Try different keywords.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== ABOUT ===== -->
-  <section class="py-24 bg-[#f0f0f0] dark:bg-[#181818]" id="about">
+  <section class="py-24 bg-[#f0ede8] dark:bg-[#181818]" id="about">
     <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
       <div>
-        <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3">What we believe</p>
-        <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-black dark:text-white leading-tight mb-6">
+        <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3">What we believe</p>
+        <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] leading-tight mb-6">
           Real knowledge comes<br class="hidden lg:block" /> from real people.
         </h2>
-        <p class="text-[#555] dark:text-[#888] mb-4 leading-relaxed">
+        <p class="text-[#787068] mb-4 leading-relaxed">
           we_share is a community platform where individuals share genuine insights,
           practical wisdom, and everyday experiences — without the noise, ads, or
           algorithmic distortion.
         </p>
-        <p class="text-[#555] dark:text-[#888] leading-relaxed">
+        <p class="text-[#787068] leading-relaxed">
           Every post is human-authored, community-vetted, and built around a single
-          promise: <strong class="text-black dark:text-white font-semibold">what you read here is legit.</strong>
+          promise: <strong class="text-[#4a9ebb] font-semibold">what you read here is legit.</strong>
         </p>
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <div class="reveal p-6 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-          <span class="block text-[2rem] font-black text-black dark:text-white tracking-tight mb-1">12k+</span>
-          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-[#555] dark:text-[#888]">Contributors</span>
+        <div class="reveal p-6 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+          <span class="block text-[2rem] font-black text-[#1c1a16] dark:text-[#f0ede8] tracking-tight mb-1">12k+</span>
+          <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-[#787068]">Contributors</span>
         </div>
-        <div class="reveal p-6 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-          <span class="block text-[2rem] font-black text-black dark:text-white tracking-tight mb-1">48k+</span>
-          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-[#555] dark:text-[#888]">Posts shared</span>
+        <div class="reveal p-6 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+          <span class="block text-[2rem] font-black text-[#1c1a16] dark:text-[#f0ede8] tracking-tight mb-1">48k+</span>
+          <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-[#787068]">Posts shared</span>
         </div>
-        <div class="reveal p-6 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-          <span class="block text-[2rem] font-black text-black dark:text-white tracking-tight mb-1">200+</span>
-          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-[#555] dark:text-[#888]">Topics covered</span>
+        <div class="reveal p-6 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+          <span class="block text-[2rem] font-black text-[#1c1a16] dark:text-[#f0ede8] tracking-tight mb-1">200+</span>
+          <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-[#787068]">Topics covered</span>
         </div>
-        <div class="reveal p-6 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]">
-          <span class="block text-[2rem] font-black text-black dark:text-white tracking-tight mb-1">98%</span>
-          <span class="text-[0.75rem] font-semibold uppercase tracking-wider text-[#555] dark:text-[#888]">Trust rating</span>
+        <div class="reveal p-6 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07]">
+          <span class="block text-[2rem] font-black text-[#1c1a16] dark:text-[#f0ede8] tracking-tight mb-1">98%</span>
+          <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-[#787068]">Trust rating</span>
         </div>
       </div>
     </div>
@@ -212,75 +216,75 @@
   <!-- ===== HOW IT WORKS ===== -->
   <section class="py-24" id="how">
     <div class="max-w-[1100px] mx-auto px-6">
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3 text-center">How it works</p>
-      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-black dark:text-white text-center mb-14">Three simple steps</h2>
+      <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3 text-center">How it works</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] text-center mb-14">Three simple steps</h2>
       <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-4">
-        <div class="reveal p-8 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2] hover:-translate-y-1 transition-all duration-200">
-          <div class="text-[2.5rem] font-black text-black/[0.06] dark:text-white/[0.06] tracking-tight mb-4 leading-none">01</div>
-          <h3 class="text-base font-bold text-black dark:text-white mb-2">Share what you know</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Post an insight, a how-to, a lesson learned — anything you genuinely know from experience.</p>
+        <div class="reveal p-8 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-[#1c1a16]/[0.05] dark:text-[#f0ede8]/[0.05] tracking-tight mb-4 leading-none">01</div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8] mb-2">Share what you know</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Post an insight, a how-to, a lesson learned — anything you genuinely know from experience.</p>
         </div>
-        <div class="hidden md:block text-[#555] dark:text-[#888] text-2xl px-2">&rarr;</div>
-        <div class="reveal p-8 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2] hover:-translate-y-1 transition-all duration-200">
-          <div class="text-[2.5rem] font-black text-black/[0.06] dark:text-white/[0.06] tracking-tight mb-4 leading-none">02</div>
-          <h3 class="text-base font-bold text-black dark:text-white mb-2">Community validates</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Peers with real expertise review and vouch for content. Quality rises naturally, noise sinks.</p>
+        <div class="hidden md:block text-[#787068] text-2xl px-2">&rarr;</div>
+        <div class="reveal p-8 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-[#1c1a16]/[0.05] dark:text-[#f0ede8]/[0.05] tracking-tight mb-4 leading-none">02</div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8] mb-2">Community validates</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Peers with real expertise review and vouch for content. Quality rises naturally, noise sinks.</p>
         </div>
-        <div class="hidden md:block text-[#555] dark:text-[#888] text-2xl px-2">&rarr;</div>
-        <div class="reveal p-8 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2] hover:-translate-y-1 transition-all duration-200">
-          <div class="text-[2.5rem] font-black text-black/[0.06] dark:text-white/[0.06] tracking-tight mb-4 leading-none">03</div>
-          <h3 class="text-base font-bold text-black dark:text-white mb-2">Everyone benefits</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Readers find trustworthy knowledge. Contributors build reputation. The community grows stronger.</p>
+        <div class="hidden md:block text-[#787068] text-2xl px-2">&rarr;</div>
+        <div class="reveal p-8 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
+          <div class="text-[2.5rem] font-black text-[#1c1a16]/[0.05] dark:text-[#f0ede8]/[0.05] tracking-tight mb-4 leading-none">03</div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8] mb-2">Everyone benefits</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Readers find trustworthy knowledge. Contributors build reputation. The community grows stronger.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== TOPICS ===== -->
-  <section class="py-24 bg-[#f0f0f0] dark:bg-[#181818]" id="topics">
+  <section class="py-24 bg-[#f0ede8] dark:bg-[#181818]" id="topics">
     <div class="max-w-[1100px] mx-auto px-6">
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3 text-center">Explore</p>
-      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-black dark:text-white text-center mb-14">Topics we cover</h2>
+      <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3 text-center">Explore</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] text-center mb-14">Topics we cover</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <a href="#browse" data-filter="Development" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Development" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#128187;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Development</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">8,241 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Development</span>
+          <span class="text-xs text-[#787068]">8,241 posts</span>
         </a>
-        <a href="#browse" data-filter="Design" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Design" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#127775;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Design</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">5,102 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Design</span>
+          <span class="text-xs text-[#787068]">5,102 posts</span>
         </a>
-        <a href="#browse" data-filter="Finance" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Finance" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#128200;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Finance</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">4,876 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Finance</span>
+          <span class="text-xs text-[#787068]">4,876 posts</span>
         </a>
-        <a href="#browse" data-filter="Science" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Science" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#129504;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Science</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">6,330 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Science</span>
+          <span class="text-xs text-[#787068]">6,330 posts</span>
         </a>
-        <a href="#browse" data-filter="Productivity" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Productivity" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#127919;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Productivity</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">3,954 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Productivity</span>
+          <span class="text-xs text-[#787068]">3,954 posts</span>
         </a>
-        <a href="#browse" data-filter="Business" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Business" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#127981;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Business</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">4,212 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Business</span>
+          <span class="text-xs text-[#787068]">4,212 posts</span>
         </a>
-        <a href="#browse" data-filter="Health" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
+        <a href="#browse" data-filter="Health" class="topic-card reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-black/[0.08] dark:border-[#f0ede8]/[0.07] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
           <span class="text-2xl">&#127774;</span>
-          <span class="text-sm font-bold text-black dark:text-white">Health</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">3,100 posts</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">Health</span>
+          <span class="text-xs text-[#787068]">3,100 posts</span>
         </a>
-        <a href="#browse" class="reveal group flex flex-col gap-2 p-5 bg-[#e5e5e5] dark:bg-[#1e1e1e] rounded-xl border border-dashed border-black/[0.12] dark:border-white/[0.12] hover:border-black/[0.25] dark:hover:border-white/[0.25] hover:-translate-y-1 transition-all duration-200">
-          <span class="text-2xl font-bold text-[#555] dark:text-[#888]">+</span>
-          <span class="text-sm font-bold text-black dark:text-white">200+ more</span>
-          <span class="text-xs text-[#555] dark:text-[#888]">Browse all topics</span>
+        <a href="#browse" class="reveal group flex flex-col gap-2 p-5 bg-[#e8e5e0] dark:bg-[#1e1e1e] rounded-xl border border-dashed border-black/[0.1] dark:border-[#f0ede8]/[0.1] hover:border-[#4a9ebb]/[0.3] hover:-translate-y-1 transition-all duration-200">
+          <span class="text-2xl font-bold text-[#787068]">+</span>
+          <span class="text-sm font-bold text-[#1c1a16] dark:text-[#f0ede8]">200+ more</span>
+          <span class="text-xs text-[#787068]">Browse all topics</span>
         </a>
       </div>
     </div>
@@ -289,80 +293,80 @@
   <!-- ===== TRUST PILLARS ===== -->
   <section class="py-24">
     <div class="max-w-[1100px] mx-auto px-6">
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3 text-center">Our promise</p>
-      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-black dark:text-white text-center mb-14">Built on trust</h2>
+      <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3 text-center">Our promise</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] text-center mb-14">Built on trust</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="reveal flex flex-col gap-3">
-          <div class="w-2 h-2 rounded-full bg-[#555] dark:bg-[#888]"></div>
-          <h3 class="text-base font-bold text-black dark:text-white">No algorithms</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Content surfaced by community votes and expertise — not engagement bait or ad revenue.</p>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#4a9ebb]"></div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8]">No algorithms</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Content surfaced by community votes and expertise — not engagement bait or ad revenue.</p>
         </div>
         <div class="reveal flex flex-col gap-3">
-          <div class="w-2 h-2 rounded-full bg-[#555] dark:bg-[#888]"></div>
-          <h3 class="text-base font-bold text-black dark:text-white">Real identities</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Contributors are verified humans. Anonymous posts aren't allowed; accountability matters.</p>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#4a9ebb]"></div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8]">Real identities</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Contributors are verified humans. Anonymous posts aren't allowed; accountability matters.</p>
         </div>
         <div class="reveal flex flex-col gap-3">
-          <div class="w-2 h-2 rounded-full bg-[#555] dark:bg-[#888]"></div>
-          <h3 class="text-base font-bold text-black dark:text-white">Peer reviewed</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Every post goes through community review before it reaches the front page.</p>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#4a9ebb]"></div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8]">Peer reviewed</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Every post goes through community review before it reaches the front page.</p>
         </div>
         <div class="reveal flex flex-col gap-3">
-          <div class="w-2 h-2 rounded-full bg-[#555] dark:bg-[#888]"></div>
-          <h3 class="text-base font-bold text-black dark:text-white">Open to all</h3>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed">Free to read, free to join. Knowledge shouldn't live behind paywalls.</p>
+          <div class="w-1.5 h-1.5 rounded-full bg-[#4a9ebb]"></div>
+          <h3 class="text-base font-bold text-[#1c1a16] dark:text-[#f0ede8]">Open to all</h3>
+          <p class="text-sm text-[#787068] leading-relaxed">Free to read, free to join. Knowledge shouldn't live behind paywalls.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== CTA ===== -->
-  <section class="py-24 bg-[#f0f0f0] dark:bg-[#181818] border-t border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08]" id="join">
+  <section class="py-24 bg-[#f0ede8] dark:bg-[#181818] border-t border-black/[0.06] dark:border-[#f0ede8]/[0.06]" id="join">
     <div class="max-w-[1100px] mx-auto px-6 flex flex-col items-center text-center">
-      <p class="text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-[#555] dark:text-[#888] mb-3">Ready?</p>
-      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-black dark:text-white leading-tight mb-4">
+      <p class="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-[#4a9ebb] mb-3">Ready?</p>
+      <h2 class="text-3xl lg:text-[2.8rem] font-bold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] leading-tight mb-4">
         Join the community.<br />Share what you know.
       </h2>
-      <p class="text-[#555] dark:text-[#888] mb-10 max-w-[46ch] leading-relaxed">
+      <p class="text-[#787068] mb-10 max-w-[46ch] leading-relaxed">
         It takes 60 seconds to sign up. No noise, no ads, just knowledge.
       </p>
       <form class="flex gap-3 flex-wrap justify-center w-full max-w-[480px] mb-3" onsubmit="handleSignup(event)">
         <input type="email" placeholder="Enter your email address" aria-label="Email address" required
-               class="flex-1 min-w-[220px] px-4 py-3 bg-[#e5e5e5] dark:bg-[#1e1e1e] border border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] focus:border-black/[0.3] dark:focus:border-white/[0.3] rounded-lg text-sm text-black dark:text-white placeholder:text-[#555] dark:text-[#888] outline-none transition-colors font-sans" />
+               class="flex-1 min-w-[220px] px-4 py-3 bg-[#e8e5e0] dark:bg-[#1e1e1e] border border-black/[0.08] dark:border-[#f0ede8]/[0.08] focus:border-[#4a9ebb]/[0.4] rounded-lg text-sm text-[#1c1a16] dark:text-[#f0ede8] placeholder:text-[#787068] outline-none transition-colors font-sans" />
         <button type="submit" class="ws-btn-primary">Get started</button>
       </form>
-      <p class="text-xs text-[#555] dark:text-[#888]">We respect your privacy. No spam, ever.</p>
+      <p class="text-xs text-[#787068]">We respect your privacy. No spam, ever.</p>
     </div>
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="bg-[#f0f0f0] dark:bg-[#181818] border-t border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] pt-16 pb-8">
+  <footer class="bg-[#f0ede8] dark:bg-[#181818] border-t border-black/[0.06] dark:border-[#f0ede8]/[0.06] pt-16 pb-8">
     <div class="max-w-[1100px] mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-12 border-b border-black/[0.08] dark:border-black/[0.08] dark:border-white/[0.08] mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 pb-12 border-b border-black/[0.06] dark:border-[#f0ede8]/[0.06] mb-8">
         <div>
-          <span class="text-xl font-black tracking-tight text-black dark:text-white block mb-3">we_share</span>
-          <p class="text-sm text-[#555] dark:text-[#888] leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
+          <span class="text-[1.2rem] font-extrabold tracking-tight text-[#1c1a16] dark:text-[#f0ede8] block mb-3">we<span style="color:#4a9ebb">_</span>share</span>
+          <p class="text-sm text-[#787068] leading-relaxed max-w-[28ch]">Knowledge sharing as we see in everyday.<br />Legit and trustworthy.</p>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Product</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Features</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Topics</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Community</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Product</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Features</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Topics</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Community</a>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Company</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">About</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Blog</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Careers</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Company</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">About</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Blog</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Careers</a>
         </div>
         <div class="flex flex-col gap-3">
-          <p class="text-[0.7rem] font-bold tracking-[0.1em] uppercase text-black dark:text-white mb-1">Legal</p>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Privacy</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Terms</a>
-          <a href="#" class="text-sm text-[#555] dark:text-[#888] hover:text-black dark:text-white transition-colors">Guidelines</a>
+          <p class="text-[0.65rem] font-bold tracking-[0.12em] uppercase text-[#1c1a16] dark:text-[#f0ede8] mb-1">Legal</p>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Privacy</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Terms</a>
+          <a href="#" class="text-sm text-[#787068] hover:text-[#4a9ebb] transition-colors">Guidelines</a>
         </div>
       </div>
-      <p class="text-xs text-[#555] dark:text-[#888]">&copy; 2026 we_share. All rights reserved.</p>
+      <p class="text-xs text-[#787068]">&copy; 2026 we_share. All rights reserved.</p>
     </div>
   </footer>
 
